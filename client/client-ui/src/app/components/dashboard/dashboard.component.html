@@ -1,0 +1,122 @@
+<!-- <p>dashboard works!</p> -->
+
+<div class="container mt-4">
+
+
+    <div class="row">
+        <div class="col-12 col-sm-4">
+            <ul class="list-group">
+                <div class="">
+                    <div *ngIf="tags"  class="card card-body">
+                        <span class="badge bg-primary" id="reset" (click)="reset($event)">
+                            Reset 
+                        </span>
+                        <span *ngFor="let tag of tags" class="badge bg-primary">
+                            {{tag}} <button type="button" (click)="checkbox( tag)" class="btn-close" aria-label="Close"></button>
+                        </span>
+                    </div>
+                  </div>
+                <li class="list-group-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Add Team</li>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    </div>
+                  </div>
+
+                <li class="list-group-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">Remove Team</li>
+                <div class="collapse" id="collapseExample1">
+                    <div class="card card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    </div>
+                </div>
+
+                <li class="list-group-item" type="button"  aria-expanded="false" aria-controls="collapseExample3">
+                    <span><input class="form-check-input mx-1" (click)="checkbox('team_name')" data-bs-toggle="collapse" data-bs-target="#collapseExample3" type="checkbox" value="" id=""></span>Search By Name
+                </li>
+                <div class="collapse" id="collapseExample3">
+                    <div class="card card-body">
+                        <div class="mb-3">
+                            <!-- <label  class="form-label">Team Name</label> -->
+                            <input #ref1 type="text"  class="form-control" id="team_name" aria-describedby="emailHelp">
+                          </div>
+                    </div>
+                </div>
+
+                <li class="list-group-item" type="button" data-bs-toggle="collapse" aria-controls="collapseExample4">
+                    <span>  <input class="form-check-input mx-1" (click)="checkbox( 'score')" data-bs-toggle="collapse" data-bs-target="#collapseExample4" type="checkbox" value="" id="flexCheckChecked"></span>Score
+                </li>
+                <div class="collapse" id="collapseExample4">
+                    <div class="card card-body">
+                        <div class="mb-3">
+                            <!-- <label for="exampleInputEmail4" class="form-label">score</label> -->
+                            <input #ref2 type="text"  class="form-control" id="score" aria-describedby="emailHelp">
+                          </div>
+                    </div>
+                </div>
+
+              </ul>     
+        </div>
+        <div class="col-12 col-sm-8">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Organise Match
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <strong>Select Team</strong>
+                      <form class="row"  (ngSubmit)="onSubmit()">
+                          <div class="col-12 col-sm-6">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Team 1</label>
+                                <input #suggestion1 type="text" name="team1"  [(ngModel)]="example.firstTeamName"  class="form-control" id="sugg1" >
+                                <ul class="list-group list-group-scroll" *ngIf="isShow" [ngClass]="{'list-group1': isShow}">
+                                  <li *ngFor="let list of listSugg1" (click)="addTeam('team1', list._id, list.team_name)" class="list-group-item">
+                                    {{list.team_name}}
+                                  </li>
+
+                                </ul>
+                              </div>
+                          </div>
+                          <div class="col-12 col-sm-6">
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Team 2</label>
+                                <input #suggestion2 type="text"  name="team2"  [(ngModel)]="example.secondTeamName"  class="form-control" id="sugg2">
+                                <ul class="list-group list-group-scroll" *ngIf="isShow" [ngClass]="{'list-group1': isShow}">
+                                  <li *ngFor="let list of listSugg2" (click)="addTeam('team2', list._id, list.team_name)" class="list-group-item">
+                                    {{list.team_name}}
+                                  </li>
+                                </ul>
+                              </div>
+                          </div>
+                          <div class="col-8 d-flex justify-content-evenly mb-3">
+                              <strong>Select Winner</strong>
+                              <button type="button" (click)="markWinner($event, 'team1')" [ngClass]="{ 'btn-success':isteam1Winner, 'btn-danger':!isteam1Winner}" class="btn ">Team 1</button>
+                              <button type="button" (click)="markWinner($event, 'team2')" [ngClass]="{'btn-success':isteam2Winner, 'btn-danger':!isteam2Winner}"class="btn ">Team 2</button>
+                              <button type="button" (click)="markWinner($event, 'tied')" [ngClass]="{'btn-info':isTied, 'btn-danger': !isTied }"class="btn">Tied</button>
+
+                          </div>
+
+                        <button type="submit" class="btn  btn-primary btn-sm">Submit</button>
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div *ngIf='passedCollection.count != 0; else else1'>
+                <app-score-board [pageConfig]="config" [list]="passedCollection"></app-score-board>
+            </div>
+            <ng-template #else1>
+               <div class="spinner-border" role="status">
+                 <span class="visually-hidden">Loading...</span>
+               </div>
+            </ng-template>
+            
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,54 @@
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col" [class]="reverseclass">
+                <span (click)='sortColumn("team_name")' ng-class='sortClass("team_name")'>
+                  Team_Name
+               </span>
+              </th>
+              <th scope="col" [class]="reverseclass">
+                <span (click)='sortColumn("wins")' ng-class='sortClass("wins")'>
+                Wins
+                </span>
+            </th>
+              <th scope="col">Loose</th>
+              <th scope="col">Ties</th>
+              <th scope="col" [class]="reverseclass">
+                <span (click)='sortColumn("score")' ng-class='sortClass("score")'>
+                  Score
+               </span>
+            </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr    *ngFor="let item of list.data  | paginate:configCustomPagination | autoSort:column:reverse ">
+                <td>{{item.team_name}}</td>
+                <td>{{item.wins}}</td>
+                <td>{{item.losses}}</td>
+                <td>{{item.ties}}</td>
+                <td>{{item.score}}</td>
+            </tr>
+          </tbody>
+    </table>
+
+    <!-- <pagination-controls  id="some_id"
+    (pageChange)="pageChanged($event)"
+    (pageBoundsCorrection)="pageChanged($event)"
+    maxSize="9"
+    directionLinks="true"
+    autoHide="true"
+    responsive="true"
+    previousLabel="Previous"
+    nextLabel="Next"
+    screenReaderPaginationLabel="Pagination"
+    screenReaderPageLabel="page"
+    screenReaderCurrentLabel="You're on page">
+</pagination-controls> -->
+<pagination-controls id="customPaginate" [maxSize]="maxSize" [directionLinks]="directionLinks" [autoHide]="autoHide"
+[responsive]="responsive" [previousLabel]="labels.previousLabel" [nextLabel]="labels.nextLabel"
+[screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+[screenReaderPageLabel]="labels.screenReaderPageLabel"
+[screenReaderCurrentLabel]="labels.screenReaderCurrentLabel" (pageChange)="onPageChange($event)">
+</pagination-controls>
+  </div>

@@ -1,0 +1,14 @@
+.badge 
+{
+    min-width: 70px;
+    max-width: 100px;
+}
+.list-group-scroll {
+    overflow: auto;
+    height: 200px;
+  }
+
+
+  .list-group-scroll li:hover {
+     background-color:#bdb1f1; 
+  }
